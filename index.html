@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Activities — English 11° — Roberth Jair Rivera Vargas</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+
+  <header class="main">
+    <h1>Reading Activities — English 11°</h1>
+    <div class="subtitle">Plan de Trabajo · Convalecencia · Unidades 1 y 2</div>
+    <div class="student-info">
+      <span><strong>Estudiante:</strong> Roberth Jair Rivera Vargas</span>
+      <span><strong>Sección:</strong> 11-1</span>
+      <span><strong>Centro educativo:</strong> Colegio Nocturno de Cariari</span>
+    </div>
+  </header>
+
+  <div class="instructions">
+    <h3>📖 Instrucciones generales</h3>
+    <p><strong>Paso 1 — Leer el texto:</strong> Lea el texto completo una primera vez aplicando <strong>SKIMMING</strong>.</p>
+    <p><strong>Paso 2 — Skimming question:</strong> Conteste una sola pregunta.</p>
+    <p><strong>Paso 3 — Leer otra vez:</strong> Use <strong>SCANNING</strong>.</p>
+    <p><strong>Paso 4 — Scanning questions:</strong> Conteste preguntas de detalle.</p>
+  </div>
+
+  <div class="action-bar">
+    <div class="progress-mini">
+      Lecturas completadas: <strong id="progress-text">0 / 4</strong>
+    </div>
+    <div>
+      <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimir</button>
+      <button class="btn btn-secondary" onclick="resetAll()">🔄 Reiniciar todo</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div id="readings-container"></div>
+
+  <div class="summary-card" id="summary">
+    <h2>📊 Resultado final</h2>
+    <p>Comparta este resultado con el docente.</p>
+    <div class="summary-grid" id="summary-grid"></div>
+    <div class="summary-total">
+      <div class="label">Puntaje total</div>
+      <div class="total-num" id="total-num">0 / 0</div>
+      <div id="total-msg"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
