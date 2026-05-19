@@ -3,58 +3,324 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reading Activities — English 11° — Roberth Jair Rivera Vargas</title>
-<link rel="stylesheet" href="styles.css">
+<title>Reading Activities — English 11</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f4f6f9;color:#1f2937;line-height:1.6}
+.container{max-width:900px;margin:auto;padding:20px}
+header.main{background:#1F4E79;color:white;padding:24px;border-radius:12px;margin-bottom:20px}
+header.main h1{font-size:26px}
+header.main .subtitle{font-size:14px;margin-top:4px}
+.student-info{margin-top:10px;font-size:14px}
+.instructions{background:#fff8e7;padding:16px;border-left:5px solid #f5a623;border-radius:6px;margin-bottom:20px}
+.instructions h3{margin-bottom:10px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.tab-btn{padding:10px 14px;border:none;background:white;border-radius:6px;cursor:pointer;font-weight:bold}
+.tab-btn.active{background:#1F4E79;color:white}
+.reading-card{display:none;background:white;border-radius:10px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.reading-card.active{display:block}
+.reading-text{background:#fafbfc;border:1px solid #ddd;padding:18px;border-radius:8px;margin:15px 0}
+.question{background:#fafbfc;border:1px solid #ddd;padding:15px;border-radius:8px;margin-bottom:16px}
+.option{display:block;padding:8px;border:1px solid #ddd;margin:6px 0;border-radius:6px;cursor:pointer}
+.option:hover{background:#eef5fb}
+.btn{padding:10px 18px;border:none;background:#1F4E79;color:white;border-radius:6px;cursor:pointer;margin-top:10px}
+.summary-card{display:none;background:white;padding:20px;border-radius:10px;margin-top:20px}
+.summary-card.show{display:block}
+</style>
 </head>
 <body>
-
 <div class="container">
 
-  <header class="main">
-    <h1>Reading Activities — English 11°</h1>
-    <div class="subtitle">Plan de Trabajo · Convalecencia · Unidades 1 y 2</div>
-    <div class="student-info">
-      <span><strong>Estudiante:</strong> Roberth Jair Rivera Vargas</span>
-      <span><strong>Sección:</strong> 11-1</span>
-      <span><strong>Centro educativo:</strong> Colegio Nocturno de Cariari</span>
-    </div>
-  </header>
+<header class="main">
+<h1>Reading Activities — English 11</h1>
+<div class="subtitle">Independent Work Plan</div>
+<div class="student-info">
+Student: Roberth Jair Rivera Vargas | Section: 11-1 | School: Colegio Nocturno de Cariari
+</div>
+</header>
 
-  <div class="instructions">
-    <h3>📖 Instrucciones generales</h3>
-    <p><strong>Paso 1 — Leer el texto:</strong> Lea el texto completo una primera vez aplicando <strong>SKIMMING</strong>.</p>
-    <p><strong>Paso 2 — Skimming question:</strong> Conteste una sola pregunta.</p>
-    <p><strong>Paso 3 — Leer otra vez:</strong> Use <strong>SCANNING</strong>.</p>
-    <p><strong>Paso 4 — Scanning questions:</strong> Conteste preguntas de detalle.</p>
-  </div>
-
-  <div class="action-bar">
-    <div class="progress-mini">
-      Lecturas completadas: <strong id="progress-text">0 / 4</strong>
-    </div>
-    <div>
-      <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimir</button>
-      <button class="btn btn-secondary" onclick="resetAll()">🔄 Reiniciar todo</button>
-    </div>
-  </div>
-
-  <div class="tabs" id="tabs"></div>
-
-  <div id="readings-container"></div>
-
-  <div class="summary-card" id="summary">
-    <h2>📊 Resultado final</h2>
-    <p>Comparta este resultado con el docente.</p>
-    <div class="summary-grid" id="summary-grid"></div>
-    <div class="summary-total">
-      <div class="label">Puntaje total</div>
-      <div class="total-num" id="total-num">0 / 0</div>
-      <div id="total-msg"></div>
-    </div>
-  </div>
-
+<div class="instructions">
+<h3>General Instructions</h3>
+<p>Step 1: Read the text quickly to understand the main idea.</p>
+<p>Step 2: Answer the skimming question.</p>
+<p>Step 3: Read the text again carefully.</p>
+<p>Step 4: Answer the scanning questions.</p>
 </div>
 
-<script src="script.js"></script>
+<div class="tabs" id="tabs"></div>
+<div id="readings-container"></div>
+
+<div class="summary-card" id="summary">
+<h2>Final Result</h2>
+<div id="summary-grid"></div>
+<h3 id="total-num"></h3>
+</div>
+
+<script>
+const READINGS = [
+
+{
+id:1, unit:1,
+title:"Mariana's Decision",
+paragraphs:[
+"Mariana is 17 years old. She lives in Limón. She is finishing high school.",
+"She got a scholarship to study in Canada. She feels happy but nervous.",
+"Her parents support her. Mariana decides she wants to study abroad."
+],
+skimming:{
+question:"What is the text mainly about?",
+options:[
+"Mariana wants a job",
+"Mariana is deciding to study in another country",
+"Mariana wants to buy a house",
+"Mariana is moving to Limón"
+],
+correct:1
+},
+scanning:[
+{
+question:"How old is Mariana?",
+options:["16","17","18","19"],
+correct:1
+},
+{
+question:"Where does she live?",
+options:["San José","Heredia","Limón","Cartago"],
+correct:2
+},
+{
+question:"Where will she study?",
+options:["Costa Rica","Mexico","Canada","Panama"],
+correct:2
+},
+{
+question:"Who supports Mariana?",
+options:["Her teacher","Her friends","Her parents","Her cousin"],
+correct:2
+}
+]
+},
+
+{
+id:2, unit:1,
+title:"Two Friends, Two Plans",
+paragraphs:[
+"Carlos and Diego are friends. They are in high school.",
+"Carlos wants to study Medicine. Diego wants to open a coffee shop.",
+"Both work hard for their future."
+],
+skimming:{
+question:"What is the text mainly about?",
+options:[
+"Two students with different future plans",
+"Two students who travel",
+"Two teachers",
+"A coffee festival"
+],
+correct:0
+},
+scanning:[
+{
+question:"What does Carlos want to study?",
+options:["Law","Medicine","English","Art"],
+correct:1
+},
+{
+question:"What business does Diego want?",
+options:["Restaurant","Coffee shop","Store","Hotel"],
+correct:1
+},
+{
+question:"Who are they?",
+options:["Brothers","Teachers","Friends","Doctors"],
+correct:2
+},
+{
+question:"Where are they?",
+options:["High school","Hospital","Airport","Office"],
+correct:0
+}
+]
+},
+{
+id:3, unit:2,
+title:"Sofia's Healthy Life",
+paragraphs:[
+"Sofia is a teacher from San José. She had unhealthy habits.",
+"She changed her food and started walking every day.",
+"After one year, she felt better and healthier."
+],
+skimming:{
+question:"What is the text mainly about?",
+options:[
+"A woman changes her life",
+"A woman moves country",
+"A teacher quits school",
+"A woman buys food"
+],
+correct:0
+},
+scanning:[
+{
+question:"Where is Sofia from?",
+options:["Limón","Puntarenas","San José","Cartago"],
+correct:2
+},
+{
+question:"What did she start doing?",
+options:["Swimming","Walking","Driving","Cooking cakes"],
+correct:1
+},
+{
+question:"How long was her change?",
+options:["1 year","2 days","3 weeks","5 years"],
+correct:0
+},
+{
+question:"How did she feel?",
+options:["Sick","Angry","Better","Bored"],
+correct:2
+}
+]
+},
+
+{
+id:4, unit:2,
+title:"Franklin Chang Díaz",
+paragraphs:[
+"Franklin Chang Díaz is from Costa Rica.",
+"He became an astronaut and traveled to space.",
+"He tells students to work hard and follow their dreams."
+],
+skimming:{
+question:"What is the text mainly about?",
+options:[
+"A football player",
+"A scientist from Costa Rica",
+"A Costa Rican astronaut",
+"A doctor"
+],
+correct:2
+},
+scanning:[
+{
+question:"Where is Franklin from?",
+options:["USA","Costa Rica","Canada","Mexico"],
+correct:1
+},
+{
+question:"What was his job?",
+options:["Teacher","Astronaut","Farmer","Pilot"],
+correct:1
+},
+{
+question:"Where did he travel?",
+options:["Moon","Europe","Space","Asia"],
+correct:2
+},
+{
+question:"What does he tell students?",
+options:["Sleep more","Work hard","Play games","Travel soon"],
+correct:1
+}
+]
+}
+];
+
+const state={current:1,answers:{}};
+READINGS.forEach(r=>state.answers[r.id]={skim:null,scan:{}});
+
+function renderTabs(){
+const tabs=document.getElementById("tabs");
+tabs.innerHTML="";
+READINGS.forEach(r=>{
+const b=document.createElement("button");
+b.className="tab-btn"+(state.current===r.id?" active":"");
+b.textContent="Reading "+r.id;
+b.onclick=()=>{state.current=r.id;render()};
+tabs.appendChild(b);
+});
+}
+
+function renderReadings(){
+const c=document.getElementById("readings-container");
+c.innerHTML="";
+READINGS.forEach(r=>{
+const card=document.createElement("div");
+card.className="reading-card"+(state.current===r.id?" active":"");
+
+card.innerHTML=`
+<h2>${r.title}</h2>
+<div class="reading-text">
+${r.paragraphs.map(p=>`<p>${p}</p>`).join("")}
+</div>
+
+<h3>Skimming</h3>
+<div class="question">
+<p>${r.skimming.question}</p>
+${r.skimming.options.map((o,i)=>`
+<label class="option">
+<input type="radio" name="skim-${r.id}" onchange="state.answers[${r.id}].skim=${i}">
+ ${o}
+</label>`).join("")}
+</div>
+
+<h3>Scanning</h3>
+${r.scanning.map((q,qi)=>`
+<div class="question">
+<p>${qi+1}. ${q.question}</p>
+${q.options.map((o,i)=>`
+<label class="option">
+<input type="radio" name="scan-${r.id}-${qi}" onchange="state.answers[${r.id}].scan[${qi}]=${i}">
+ ${o}
+</label>`).join("")}
+</div>`).join("")}
+
+<button class="btn" onclick="checkReading(${r.id})">Check answers</button>
+<div id="score-${r.id}"></div>
+`;
+
+c.appendChild(card);
+});
+}
+
+function checkReading(id){
+const r=READINGS.find(x=>x.id===id);
+const a=state.answers[id];
+let score=0;
+
+if(a.skim===r.skimming.correct) score++;
+
+r.scanning.forEach((q,i)=>{
+if(a.scan[i]===q.correct) score++;
+});
+
+document.getElementById("score-"+id).innerHTML=
+"<h3>Score: "+score+"/5</h3>";
+
+showSummary();
+}
+
+function showSummary(){
+let total=0;
+READINGS.forEach(r=>{
+const a=state.answers[r.id];
+let s=0;
+if(a.skim===r.skimming.correct)s++;
+r.scanning.forEach((q,i)=>{
+if(a.scan[i]===q.correct)s++;
+});
+total+=s;
+});
+document.getElementById("summary").classList.add("show");
+document.getElementById("total-num").innerText="Total: "+total+"/20";
+}
+
+function render(){
+renderTabs();
+renderReadings();
+}
+render();
+</script>
 </body>
 </html>
