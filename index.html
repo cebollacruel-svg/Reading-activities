@@ -1,326 +1,236 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reading Activities — English 11</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f4f6f9;color:#1f2937;line-height:1.6}
-.container{max-width:900px;margin:auto;padding:20px}
-header.main{background:#1F4E79;color:white;padding:24px;border-radius:12px;margin-bottom:20px}
-header.main h1{font-size:26px}
-header.main .subtitle{font-size:14px;margin-top:4px}
-.student-info{margin-top:10px;font-size:14px}
-.instructions{background:#fff8e7;padding:16px;border-left:5px solid #f5a623;border-radius:6px;margin-bottom:20px}
-.instructions h3{margin-bottom:10px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.tab-btn{padding:10px 14px;border:none;background:white;border-radius:6px;cursor:pointer;font-weight:bold}
-.tab-btn.active{background:#1F4E79;color:white}
-.reading-card{display:none;background:white;border-radius:10px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.reading-card.active{display:block}
-.reading-text{background:#fafbfc;border:1px solid #ddd;padding:18px;border-radius:8px;margin:15px 0}
-.question{background:#fafbfc;border:1px solid #ddd;padding:15px;border-radius:8px;margin-bottom:16px}
-.option{display:block;padding:8px;border:1px solid #ddd;margin:6px 0;border-radius:6px;cursor:pointer}
-.option:hover{background:#eef5fb}
-.btn{padding:10px 18px;border:none;background:#1F4E79;color:white;border-radius:6px;cursor:pointer;margin-top:10px}
-.summary-card{display:none;background:white;padding:20px;border-radius:10px;margin-top:20px}
-.summary-card.show{display:block}
-</style>
-</head>
-<body>
-<div class="container">
-
-<header class="main">
-<h1>Reading Activities — English 11</h1>
-<div class="subtitle">Independent Work Plan</div>
-<div class="student-info">
-Student: Roberth Jair Rivera Vargas | Section: 11-1 | School: Colegio Nocturno de Cariari
-</div>
-</header>
-
-<div class="instructions">
-<h3>General Instructions</h3>
-<p>Step 1: Read the text quickly to understand the main idea.</p>
-<p>Step 2: Answer the skimming question.</p>
-<p>Step 3: Read the text again carefully.</p>
-<p>Step 4: Answer the scanning questions.</p>
-</div>
-
-<div class="tabs" id="tabs"></div>
-<div id="readings-container"></div>
-
-<div class="summary-card" id="summary">
-<h2>Final Result</h2>
-<div id="summary-grid"></div>
-<h3 id="total-num"></h3>
-</div>
-
-<script>
 const READINGS = [
 
 {
-id:1, unit:1,
-title:"Mariana's Decision",
-paragraphs:[
-"Mariana is 17 years old. She lives in Limón. She is finishing high school.",
-"She got a scholarship to study in Canada. She feels happy but nervous.",
-"Her parents support her. Mariana decides she wants to study abroad."
+id: 1, unit: 1,
+title: "Should I Study Abroad? Mariana's Decision",
+paragraphs: [
+"Mariana is a seventeen-year-old student from Limón. She is in her last year of high school.",
+"She got a scholarship to study Industrial Engineering in Canada. The scholarship pays tuition and accommodation.",
+"Mariana feels excited, but she is also nervous because Canada is far from home.",
+"Her parents support her. They tell her this is a good opportunity for her future.",
+"Mariana decides to think carefully and make the best choice."
 ],
-skimming:{
-question:"What is the text mainly about?",
-options:[
-"Mariana wants a job",
-"Mariana is deciding to study in another country",
-"Mariana wants to buy a house",
-"Mariana is moving to Limón"
+vocab: [
+["scholarship", "financial help for studies"],
+["tuition", "money for classes"],
+["accommodation", "place to live"],
+["opportunity", "chance"],
+["future", "time ahead"]
 ],
-correct:1
+skimming: {
+question: "What is the text mainly about?",
+options: [
+"A girl buying a house",
+"A student deciding to study in another country",
+"A family moving to Canada",
+"A school in Limón"
+],
+correct: 1,
+explanation: "The text is about Mariana deciding if she should study abroad."
 },
-scanning:[
+scanning: [
 {
-question:"How old is Mariana?",
-options:["16","17","18","19"],
-correct:1
+question: "How old is Mariana?",
+options: ["15", "16", "17", "18"],
+correct: 2,
+explanation: "She is seventeen years old."
 },
 {
-question:"Where does she live?",
-options:["San José","Heredia","Limón","Cartago"],
-correct:2
+question: "Where is she from?",
+options: ["Heredia", "Limón", "San José", "Cartago"],
+correct: 1,
+explanation: "She is from Limón."
 },
 {
-question:"Where will she study?",
-options:["Costa Rica","Mexico","Canada","Panama"],
-correct:2
+question: "Where will she study?",
+options: ["Mexico", "USA", "Canada", "Panama"],
+correct: 2,
+explanation: "She will study in Canada."
 },
 {
-question:"Who supports Mariana?",
-options:["Her teacher","Her friends","Her parents","Her cousin"],
-correct:2
+question: "What does the scholarship pay?",
+options: [
+"Flights",
+"Food",
+"Tuition and accommodation",
+"Everything"
+],
+correct: 2,
+explanation: "The scholarship pays tuition and accommodation."
 }
 ]
 },
 
 {
-id:2, unit:1,
-title:"Two Friends, Two Plans",
-paragraphs:[
-"Carlos and Diego are friends. They are in high school.",
-"Carlos wants to study Medicine. Diego wants to open a coffee shop.",
-"Both work hard for their future."
+id: 2, unit: 1,
+title: "Pass or Fail? Two Friends",
+paragraphs: [
+"Carlos and Diego are in their final year of high school.",
+"Carlos wants to study Medicine at university.",
+"Diego wants to open a coffee shop in Cariari.",
+"Both friends have different plans, but they work hard for their future.",
+"Their teacher says both plans are good."
 ],
-skimming:{
-question:"What is the text mainly about?",
-options:[
+vocab: [
+["future", "time ahead"],
+["doctor", "medical professional"],
+["business", "company"],
+["study", "learn"],
+["goal", "objective"]
+],
+skimming: {
+question: "What is the text mainly about?",
+options: [
 "Two students with different future plans",
-"Two students who travel",
-"Two teachers",
-"A coffee festival"
+"A medical school",
+"A coffee festival",
+"A teacher in Cariari"
 ],
-correct:0
+correct: 0,
+explanation: "The text compares two friends and their future plans."
 },
-scanning:[
+scanning: [
 {
-question:"What does Carlos want to study?",
-options:["Law","Medicine","English","Art"],
-correct:1
-},
-{
-question:"What business does Diego want?",
-options:["Restaurant","Coffee shop","Store","Hotel"],
-correct:1
+question: "What does Carlos want to study?",
+options: ["Law", "Medicine", "Math", "English"],
+correct: 1,
+explanation: "Carlos wants to study Medicine."
 },
 {
-question:"Who are they?",
-options:["Brothers","Teachers","Friends","Doctors"],
-correct:2
+question: "What business does Diego want?",
+options: ["Hotel", "Store", "Coffee shop", "Restaurant"],
+correct: 2,
+explanation: "Diego wants a coffee shop."
 },
 {
-question:"Where are they?",
-options:["High school","Hospital","Airport","Office"],
-correct:0
+question: "Where does Diego want to open the business?",
+options: ["San José", "Cariari", "Guápiles", "Siquirres"],
+correct: 1,
+explanation: "He wants to open it in Cariari."
+},
+{
+question: "Who says both plans are good?",
+options: ["Mother", "Teacher", "Doctor", "Friend"],
+correct: 1,
+explanation: "Their teacher says both plans are good."
 }
 ]
 },
 {
-id:3, unit:2,
-title:"Sofia's Healthy Life",
-paragraphs:[
-"Sofia is a teacher from San José. She had unhealthy habits.",
-"She changed her food and started walking every day.",
-"After one year, she felt better and healthier."
+id: 3, unit: 2,
+title: "A Healthy Life: Sofia's Story",
+paragraphs: [
+"Sofia is a twenty-five-year-old teacher from San José.",
+"She used to eat fast food and did not exercise.",
+"She changed her habits. She drank water, walked every day, and ate healthy food.",
+"After one year, she felt better and healthier.",
+"She says balance is important for a healthy life."
 ],
-skimming:{
-question:"What is the text mainly about?",
-options:[
-"A woman changes her life",
-"A woman moves country",
-"A teacher quits school",
-"A woman buys food"
+vocab: [
+["healthy", "good for the body"],
+["exercise", "physical activity"],
+["habit", "routine action"],
+["balance", "equal and healthy combination"],
+["energy", "strength"]
 ],
-correct:0
+skimming: {
+question: "What is the text mainly about?",
+options: [
+"A teacher changes her lifestyle",
+"A woman travels abroad",
+"A school activity",
+"A doctor visit"
+],
+correct: 0,
+explanation: "The text is about Sofia changing her habits to be healthy."
 },
-scanning:[
+scanning: [
 {
-question:"Where is Sofia from?",
-options:["Limón","Puntarenas","San José","Cartago"],
-correct:2
+question: "How old is Sofia?",
+options: ["22", "23", "25", "28"],
+correct: 2,
+explanation: "She is twenty-five years old."
 },
 {
-question:"What did she start doing?",
-options:["Swimming","Walking","Driving","Cooking cakes"],
-correct:1
+question: "Where is she from?",
+options: ["Limón", "San José", "Heredia", "Cartago"],
+correct: 1,
+explanation: "She is from San José."
 },
 {
-question:"How long was her change?",
-options:["1 year","2 days","3 weeks","5 years"],
-correct:0
+question: "What did she start drinking?",
+options: ["Coffee", "Juice", "Water", "Milk"],
+correct: 2,
+explanation: "She replaced soft drinks with water."
 },
 {
-question:"How did she feel?",
-options:["Sick","Angry","Better","Bored"],
-correct:2
+question: "What is important according to Sofia?",
+options: ["Money", "Balance", "Travel", "Sleep only"],
+correct: 1,
+explanation: "She says balance is important."
 }
 ]
 },
 
 {
-id:4, unit:2,
-title:"Franklin Chang Díaz",
-paragraphs:[
-"Franklin Chang Díaz is from Costa Rica.",
-"He became an astronaut and traveled to space.",
+id: 4, unit: 2,
+title: "Franklin Chang Díaz",
+paragraphs: [
+"Franklin Chang Díaz is a famous Costa Rican astronaut.",
+"He was born in San José in 1950.",
+"He studied in the United States and became an astronaut at NASA.",
+"He traveled to space seven times.",
 "He tells students to work hard and follow their dreams."
 ],
-skimming:{
-question:"What is the text mainly about?",
-options:[
-"A football player",
-"A scientist from Costa Rica",
-"A Costa Rican astronaut",
-"A doctor"
+vocab: [
+["astronaut", "person who travels to space"],
+["space", "outside Earth"],
+["study", "learn"],
+["dream", "goal"],
+["hard work", "strong effort"]
 ],
-correct:2
+skimming: {
+question: "What is the text mainly about?",
+options: [
+"A teacher from Costa Rica",
+"A Costa Rican astronaut",
+"A science class",
+"A university"
+],
+correct: 1,
+explanation: "The text talks about Franklin Chang Díaz and his achievements."
 },
-scanning:[
+scanning: [
 {
-question:"Where is Franklin from?",
-options:["USA","Costa Rica","Canada","Mexico"],
-correct:1
+question: "Where was Franklin born?",
+options: ["Cartago", "San José", "Limón", "Alajuela"],
+correct: 1,
+explanation: "He was born in San José."
 },
 {
-question:"What was his job?",
-options:["Teacher","Astronaut","Farmer","Pilot"],
-correct:1
+question: "What year was he born?",
+options: ["1945", "1950", "1960", "1970"],
+correct: 1,
+explanation: "He was born in 1950."
 },
 {
-question:"Where did he travel?",
-options:["Moon","Europe","Space","Asia"],
-correct:2
+question: "How many times did he go to space?",
+options: ["5", "6", "7", "8"],
+correct: 2,
+explanation: "He traveled to space seven times."
 },
 {
-question:"What does he tell students?",
-options:["Sleep more","Work hard","Play games","Travel soon"],
-correct:1
+question: "What does he tell students?",
+options: [
+"Play more",
+"Travel now",
+"Work hard",
+"Study less"
+],
+correct: 2,
+explanation: "He tells students to work hard."
 }
 ]
 }
+
 ];
-
-const state={current:1,answers:{}};
-READINGS.forEach(r=>state.answers[r.id]={skim:null,scan:{}});
-
-function renderTabs(){
-const tabs=document.getElementById("tabs");
-tabs.innerHTML="";
-READINGS.forEach(r=>{
-const b=document.createElement("button");
-b.className="tab-btn"+(state.current===r.id?" active":"");
-b.textContent="Reading "+r.id;
-b.onclick=()=>{state.current=r.id;render()};
-tabs.appendChild(b);
-});
-}
-
-function renderReadings(){
-const c=document.getElementById("readings-container");
-c.innerHTML="";
-READINGS.forEach(r=>{
-const card=document.createElement("div");
-card.className="reading-card"+(state.current===r.id?" active":"");
-
-card.innerHTML=`
-<h2>${r.title}</h2>
-<div class="reading-text">
-${r.paragraphs.map(p=>`<p>${p}</p>`).join("")}
-</div>
-
-<h3>Skimming</h3>
-<div class="question">
-<p>${r.skimming.question}</p>
-${r.skimming.options.map((o,i)=>`
-<label class="option">
-<input type="radio" name="skim-${r.id}" onchange="state.answers[${r.id}].skim=${i}">
- ${o}
-</label>`).join("")}
-</div>
-
-<h3>Scanning</h3>
-${r.scanning.map((q,qi)=>`
-<div class="question">
-<p>${qi+1}. ${q.question}</p>
-${q.options.map((o,i)=>`
-<label class="option">
-<input type="radio" name="scan-${r.id}-${qi}" onchange="state.answers[${r.id}].scan[${qi}]=${i}">
- ${o}
-</label>`).join("")}
-</div>`).join("")}
-
-<button class="btn" onclick="checkReading(${r.id})">Check answers</button>
-<div id="score-${r.id}"></div>
-`;
-
-c.appendChild(card);
-});
-}
-
-function checkReading(id){
-const r=READINGS.find(x=>x.id===id);
-const a=state.answers[id];
-let score=0;
-
-if(a.skim===r.skimming.correct) score++;
-
-r.scanning.forEach((q,i)=>{
-if(a.scan[i]===q.correct) score++;
-});
-
-document.getElementById("score-"+id).innerHTML=
-"<h3>Score: "+score+"/5</h3>";
-
-showSummary();
-}
-
-function showSummary(){
-let total=0;
-READINGS.forEach(r=>{
-const a=state.answers[r.id];
-let s=0;
-if(a.skim===r.skimming.correct)s++;
-r.scanning.forEach((q,i)=>{
-if(a.scan[i]===q.correct)s++;
-});
-total+=s;
-});
-document.getElementById("summary").classList.add("show");
-document.getElementById("total-num").innerText="Total: "+total+"/20";
-}
-
-function render(){
-renderTabs();
-renderReadings();
-}
-render();
-</script>
-</body>
-</html>
