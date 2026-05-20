@@ -1,236 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Activities - English 11th - Roberth Jair Rivera Vargas</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f4f6f9;
+    color: #1f2937;
+    line-height: 1.6;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  /* HEADER */
+  header.main {
+    background: linear-gradient(135deg, #1F4E79 0%, #2E75B6 100%);
+    color: white;
+    padding: 30px 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(31, 78, 121, 0.2);
+  }
+  header.main h1 { font-size: 26px; margin-bottom: 6px; font-weight: 700; }
+  header.main .subtitle { font-size: 15px; opacity: 0.95; }
+  header.main .student-info {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    font-size: 14px;
+    display: flex; flex-wrap: wrap; gap: 8px 22px;
+  }
+
+  /* INSTRUCTIONS */
+  .instructions {
+    background: #FFF8E7;
+    border-left: 5px solid #F5A623;
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+  .instructions h3 { color: #8a5800; font-size: 15px; margin-bottom: 8px; }
+  .instructions p { margin-bottom: 6px; }
+  .instructions strong { color: #1F4E79; }
+
+  /* TABS */
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 20px;
+    background: white;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    min-width: 140px;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    text-align: center;
+    font-family: inherit;
+  }
+  .tab-btn:hover { background: #f0f4f9; color: #1F4E79; }
+  .tab-btn.active { background: #1F4E79; color: white; }
+  .tab-btn.completed { border-left: 4px solid #10b981; }
+
+  /* READING CARD */
+  .reading-card {
+    display: none;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .reading-card.active { display: block; }
+  .reading-header {
+    padding: 20px 24px 16px;
+    border-bottom: 2px solid #f0f4f9;
+  }
+  .unit-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .unit-badge.unit-1 { background: #DCE6F2; color: #1F4E79; }
+  .unit-badge.unit-2 { background: #E2EFD9; color: #375623; }
+  .reading-header h2 { font-size: 20px; color: #111827; }
+
+  /* STEPS */
+  .step {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f4f9;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .step-number {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #1F4E79; color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-number.locked { background: #9ca3af; }
+  .step-title { font-size: 17px; font-weight: 700; color: #111827; }
+
+  /* READING TEXT */
+  .reading-text {
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 15.5px;
+    line-height: 1.75;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #1f2937;
+  }
+  .reading-text p { margin-bottom: 12px; }
+  .reading-text p:last-child { margin-bottom: 0; }
+
+  .vocab-help {
+    margin-top: 12px;
+    background: #f0f4f9;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .vocab-help strong { color: #1F4E79; }
+  .vocab-help .vword { display: inline-block; margin-right: 14px; margin-bottom: 4px; }
+  .vocab-help .vword b { color: #1F4E79; }
+
+  .tip-box {
+    background: #fef3c7;
+    border-left: 4px solid #F5A623;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    font-size: 13.5px;
+  }
+  .tip-box.purple { background: #ede9fe; border-left-color: #7c3aed; }
+
+  /* QUESTIONS */
+  .question {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+  }
+  .question-text {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #111827;
+  }
+  .question-text .qnum {
+    display: inline-block;
+    background: #1F4E79;
+    color: white;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 22px;
+    margin-right: 8px;
+  }
+  .options { display: flex; flex-direction: column; gap: 6px; }
+  .option {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: white;
+  }
+  .option:hover { border-color: #2E75B6; background: #f0f7fc; }
+  .option input[type="radio"] {
+    margin-top: 3px;
+    accent-color: #1F4E79;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .option label { cursor: pointer; flex: 1; font-size: 14.5px; }
+  .option.selected { border-color: #1F4E79; background: #f0f7fc; }
+  .option.correct { border-color: #10b981; background: #ecfdf5; }
+  .option.incorrect { border-color: #ef4444; background: #fef2f2; }
+  .option.correct::after { content: "Correct"; color: #10b981; font-weight: 700; margin-left: auto; font-size: 12px; align-self: center; }
+  .option.incorrect::after { content: "Incorrect"; color: #ef4444; font-weight: 700; margin-left: auto; font-size: 12px; align-self: center; }
+
+  /* BUTTONS */
+  .btn {
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .btn-primary { background: #1F4E79; color: white; }
+  .btn-primary:hover { background: #163E5F; }
+  .btn-primary:disabled { background: #9ca3af; cursor: not-allowed; }
+  .btn-secondary { background: #e5e7eb; color: #374151; margin-left: 8px; }
+  .btn-secondary:hover { background: #d1d5db; }
+  .btn-row { margin-top: 14px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { background: #ecfdf5; border-left: 4px solid #10b981; color: #065f46; }
+  .feedback.incorrect { background: #fef2f2; border-left: 4px solid #ef4444; color: #991b1b; }
+  .feedback strong { display: block; margin-bottom: 4px; }
+
+  .score-display {
+    background: linear-gradient(135deg, #1F4E79, #2E75B6);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 16px;
+    display: none;
+  }
+  .score-display.show { display: block; }
+  .score-display .score-number { font-size: 36px; font-weight: 700; margin: 8px 0; }
+  .score-display .score-label { font-size: 13px; opacity: 0.9; }
+  .score-display .score-msg { font-size: 14px; margin-top: 8px; font-style: italic; }
+
+  /* LOCKED STEP */
+  .step.locked { opacity: 0.55; pointer-events: none; }
+  .step.locked .step-number { background: #9ca3af; }
+  .lock-msg {
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+    font-size: 14px;
+    padding: 14px;
+  }
+
+  /* SUMMARY */
+  .summary-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-top: 20px;
+    display: none;
+  }
+  .summary-card.show { display: block; }
+  .summary-card h2 { color: #1F4E79; margin-bottom: 16px; font-size: 22px; }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .summary-item {
+    background: #f0f4f9;
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .summary-item .label { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+  .summary-item .value { font-size: 22px; font-weight: 700; color: #1F4E79; margin-top: 4px; }
+  .summary-total {
+    background: linear-gradient(135deg, #1F4E79, #548235);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 12px;
+  }
+  .summary-total .total-num { font-size: 42px; font-weight: 700; }
+
+  /* ACTION BAR */
+  .action-bar {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .progress-mini { color: #6b7280; }
+  .progress-mini strong { color: #1F4E79; }
+
+  @media print {
+    body { background: white; }
+    .tabs, .action-bar, .btn, .instructions { display: none !important; }
+    .reading-card { display: block !important; page-break-after: always; box-shadow: none; }
+    .step.locked { opacity: 1; pointer-events: auto; }
+    .feedback { display: block !important; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 12px 10px 40px; }
+    header.main { padding: 22px 18px; }
+    header.main h1 { font-size: 22px; }
+    .reading-header, .step { padding: 16px; }
+    .reading-text { padding: 16px; font-size: 15px; }
+    .tab-btn { font-size: 12px; padding: 9px 10px; min-width: 100px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="main">
+    <h1>Reading Activities - English 11th</h1>
+    <div class="subtitle">Work Plan - Units 1 and 2</div>
+    <div class="student-info">
+      <span><strong>Student:</strong> Roberth Jair Rivera Vargas</span>
+      <span><strong>Section:</strong> 11-1</span>
+      <span><strong>School:</strong> Colegio Nocturno de Cariari</span>
+    </div>
+  </header>
+
+  <div class="instructions">
+    <h3>General Instructions</h3>
+    <p><strong>Step 1 - Read the text:</strong> Read the text once, quickly. Do not stop on every word. Try to understand the general idea of the text.</p>
+    <p><strong>Step 2 - Main idea question:</strong> Answer one question about the main idea of the text.</p>
+    <p><strong>Step 3 - Read the text again:</strong> Read the text a second time. This time, look for specific information: names, dates, numbers, and key words.</p>
+    <p><strong>Step 4 - Detail questions:</strong> Answer four questions about specific details. You can go back to the text as many times as you need.</p>
+  </div>
+
+  <div class="action-bar">
+    <div class="progress-mini">
+      Readings completed: <strong id="progress-text">0 / 4</strong>
+    </div>
+    <div>
+      <button class="btn btn-secondary" onclick="window.print()">Print</button>
+      <button class="btn btn-secondary" onclick="resetAll()">Reset all</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="readings-container"></div>
+
+  <div class="summary-card" id="summary">
+    <h2>Final Result</h2>
+    <p style="margin-bottom:14px;">Here is the summary of your performance in the four readings. Please share this result with your teacher.</p>
+    <div class="summary-grid" id="summary-grid"></div>
+    <div class="summary-total">
+      <div class="label" style="font-size:12px;text-transform:uppercase;letter-spacing:0.5px;opacity:0.9;">Total score</div>
+      <div class="total-num" id="total-num">0 / 0</div>
+      <div id="total-msg" style="margin-top:8px;font-style:italic;font-size:14px;"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
 const READINGS = [
+  // ---------- READING 1 - UNIT 1 ----------
+  {
+    id: 1, unit: 1,
+    title: "Should I Study Abroad? Mariana's Dilemma",
+    paragraphs: [
+      "Mariana is a seventeen-year-old student from Limon. She is in her last year of high school and she has a big decision to make. She has been offered a scholarship to study Industrial Engineering at a university in Canada. The scholarship covers tuition and accommodation, but not flights or personal expenses. She is excited but also worried.",
+      "\"I don't know what to do,\" Mariana tells her parents at dinner. \"Canada is so far away. I have never travelled outside Costa Rica. What if I get homesick? What if I can't handle the cold weather? And my English is not perfect.\"",
+      "Her mother smiles and takes her hand. \"Mariana, I understand you are scared. But this is an amazing opportunity. You are a hard-working and disciplined student. You have always achieved your goals. If you go to Canada, you will learn new things, meet new people, and become more independent. You can always come back home for holidays.\"",
+      "Her father adds, \"Studying abroad will open many doors for your future. Industrial Engineering is a competitive career, and a degree from a Canadian university will give you an advantage. But the decision is yours. If you prefer to study here, at the University of Costa Rica, we will support you too. What matters is that you choose what feels right for you.\"",
+      "Mariana thinks for a moment. \"I am going to make a list of the advantages and disadvantages. Then I will decide. But I think... I think I should go. If I don't try, I will regret it for the rest of my life.\"",
+      "Her parents smile. They know that whatever Mariana decides, she will succeed."
+    ],
+    vocab: [
+      ["scholarship", "money given to a student to pay for studies"],
+      ["tuition", "the money you pay to attend a school or university"],
+      ["accommodation", "a place to live or stay"],
+      ["homesick", "feeling sad because you are away from home"],
+      ["regret", "to feel sorry about a past decision"],
+      ["disciplined", "able to control yourself and work hard"]
+    ],
+    mainIdea: {
+      question: "What is the text MAINLY about?",
+      options: [
+        "A student who decided to drop out of school.",
+        "A young woman deciding whether to study abroad.",
+        "The difficulties of living in Canada.",
+        "How to apply for a university scholarship."
+      ],
+      correct: 1,
+      explanation: "The whole text focuses on Mariana and her decision about studying abroad. The other topics appear in the text but are not the main idea."
+    },
+    details: [
+      {
+        question: "How old is Mariana?",
+        options: ["15 years old", "17 years old", "18 years old", "20 years old"],
+        correct: 1,
+        explanation: "The text says: \"Mariana is a seventeen-year-old student...\""
+      },
+      {
+        question: "What does her scholarship cover?",
+        options: [
+          "Flights and personal expenses.",
+          "Only food.",
+          "Tuition and accommodation.",
+          "Everything she needs."
+        ],
+        correct: 2,
+        explanation: "The text says: \"The scholarship covers tuition and accommodation, but not flights or personal expenses.\""
+      },
+      {
+        question: "What career does Mariana want to study?",
+        options: ["Medicine", "Law", "Industrial Engineering", "Business Administration"],
+        correct: 2,
+        explanation: "The text mentions: \"...a scholarship to study Industrial Engineering at a university in Canada.\""
+      },
+      {
+        question: "What is Mariana going to do BEFORE making her final decision?",
+        options: [
+          "Travel to Canada to visit the university.",
+          "Make a list of advantages and disadvantages.",
+          "Ask her teacher for advice.",
+          "Improve her English first."
+        ],
+        correct: 1,
+        explanation: "The text says: \"I am going to make a list of the advantages and disadvantages. Then I will decide.\""
+      }
+    ]
+  },
 
-{
-id: 1, unit: 1,
-title: "Should I Study Abroad? Mariana's Decision",
-paragraphs: [
-"Mariana is a seventeen-year-old student from Limón. She is in her last year of high school.",
-"She got a scholarship to study Industrial Engineering in Canada. The scholarship pays tuition and accommodation.",
-"Mariana feels excited, but she is also nervous because Canada is far from home.",
-"Her parents support her. They tell her this is a good opportunity for her future.",
-"Mariana decides to think carefully and make the best choice."
-],
-vocab: [
-["scholarship", "financial help for studies"],
-["tuition", "money for classes"],
-["accommodation", "place to live"],
-["opportunity", "chance"],
-["future", "time ahead"]
-],
-skimming: {
-question: "What is the text mainly about?",
-options: [
-"A girl buying a house",
-"A student deciding to study in another country",
-"A family moving to Canada",
-"A school in Limón"
-],
-correct: 1,
-explanation: "The text is about Mariana deciding if she should study abroad."
-},
-scanning: [
-{
-question: "How old is Mariana?",
-options: ["15", "16", "17", "18"],
-correct: 2,
-explanation: "She is seventeen years old."
-},
-{
-question: "Where is she from?",
-options: ["Heredia", "Limón", "San José", "Cartago"],
-correct: 1,
-explanation: "She is from Limón."
-},
-{
-question: "Where will she study?",
-options: ["Mexico", "USA", "Canada", "Panama"],
-correct: 2,
-explanation: "She will study in Canada."
-},
-{
-question: "What does the scholarship pay?",
-options: [
-"Flights",
-"Food",
-"Tuition and accommodation",
-"Everything"
-],
-correct: 2,
-explanation: "The scholarship pays tuition and accommodation."
-}
-]
-},
+  // ---------- READING 2 - UNIT 1 ----------
+  {
+    id: 2, unit: 1,
+    title: "Pass or Fail? Two Roads, Two Friends",
+    paragraphs: [
+      "Carlos is in his final year of high school. Next month, he will take the Bachillerato exam - the most important test of his school life. If he passes, he can apply to university. If he fails, he will have to wait another year. The pressure is enormous, and he is feeling stressed.",
+      "His best friend Diego thinks differently about the future. \"I am not going to university,\" Diego says. \"I am going to start my own business. I want to open a small coffee shop in Cariari. I have been saving money for two years, and I know how to make excellent coffee.\"",
+      "Carlos respects Diego's decision, but he is sure he wants to go to university. He plans to study Medicine. It will take many years, but his dream is to become a doctor and work in the public hospital in his community.",
+      "\"You are very different,\" their teacher tells them. \"But both of you have clear goals. Diego, you are practical and entrepreneurial. Carlos, you are ambitious and patient. The important thing is that you both know what you want.\"",
+      "Carlos studies four hours every day. He does not go out on weekends. Some of his classmates think he is missing out on fun, but Carlos has a plan: get ahead now, enjoy later. \"Success is a journey, not a destination,\" he often says.",
+      "Diego, on the other hand, is already working part-time at a cafe to learn the business. He is also taking an online course on small business administration.",
+      "Both young men are taking different paths, but both are working hard to build their future."
+    ],
+    vocab: [
+      ["Bachillerato exam", "the final national exam at the end of high school"],
+      ["entrepreneurial", "having the ability to start a business"],
+      ["ambitious", "having a strong desire to succeed"],
+      ["get ahead", "to make progress in life"],
+      ["missing out", "losing the chance to enjoy something"],
+      ["path", "a way or direction in life"]
+    ],
+    mainIdea: {
+      question: "What is the text MAINLY about?",
+      options: [
+        "Two friends who hate going to school.",
+        "How to pass the Bachillerato exam easily.",
+        "Two friends who have different but valid plans for their future.",
+        "The story of a successful coffee shop in Cariari."
+      ],
+      correct: 2,
+      explanation: "The text compares two different but equally valid paths: university (Carlos) and entrepreneurship (Diego)."
+    },
+    details: [
+      {
+        question: "What is Diego's plan for his future?",
+        options: [
+          "To study Medicine at the university.",
+          "To move to another country.",
+          "To open a small coffee shop in Cariari.",
+          "To become a teacher."
+        ],
+        correct: 2,
+        explanation: "The text says: \"I want to open a small coffee shop in Cariari.\""
+      },
+      {
+        question: "What does Carlos want to study?",
+        options: ["Engineering", "Business", "Law", "Medicine"],
+        correct: 3,
+        explanation: "The text says: \"He plans to study Medicine.\""
+      },
+      {
+        question: "How many hours does Carlos study every day?",
+        options: ["Two hours", "Three hours", "Four hours", "Six hours"],
+        correct: 2,
+        explanation: "The text says: \"Carlos studies four hours every day.\""
+      },
+      {
+        question: "Besides working at a cafe, what else is Diego doing to prepare for his business?",
+        options: [
+          "Travelling abroad.",
+          "Studying Business Administration at university.",
+          "Taking an online course on small business administration.",
+          "Working with his father."
+        ],
+        correct: 2,
+        explanation: "The text says: \"He is also taking an online course on small business administration.\""
+      }
+    ]
+  },
 
-{
-id: 2, unit: 1,
-title: "Pass or Fail? Two Friends",
-paragraphs: [
-"Carlos and Diego are in their final year of high school.",
-"Carlos wants to study Medicine at university.",
-"Diego wants to open a coffee shop in Cariari.",
-"Both friends have different plans, but they work hard for their future.",
-"Their teacher says both plans are good."
-],
-vocab: [
-["future", "time ahead"],
-["doctor", "medical professional"],
-["business", "company"],
-["study", "learn"],
-["goal", "objective"]
-],
-skimming: {
-question: "What is the text mainly about?",
-options: [
-"Two students with different future plans",
-"A medical school",
-"A coffee festival",
-"A teacher in Cariari"
-],
-correct: 0,
-explanation: "The text compares two friends and their future plans."
-},
-scanning: [
-{
-question: "What does Carlos want to study?",
-options: ["Law", "Medicine", "Math", "English"],
-correct: 1,
-explanation: "Carlos wants to study Medicine."
-},
-{
-question: "What business does Diego want?",
-options: ["Hotel", "Store", "Coffee shop", "Restaurant"],
-correct: 2,
-explanation: "Diego wants a coffee shop."
-},
-{
-question: "Where does Diego want to open the business?",
-options: ["San José", "Cariari", "Guápiles", "Siquirres"],
-correct: 1,
-explanation: "He wants to open it in Cariari."
-},
-{
-question: "Who says both plans are good?",
-options: ["Mother", "Teacher", "Doctor", "Friend"],
-correct: 1,
-explanation: "Their teacher says both plans are good."
-}
-]
-},
-{
-id: 3, unit: 2,
-title: "A Healthy Life: Sofia's Story",
-paragraphs: [
-"Sofia is a twenty-five-year-old teacher from San José.",
-"She used to eat fast food and did not exercise.",
-"She changed her habits. She drank water, walked every day, and ate healthy food.",
-"After one year, she felt better and healthier.",
-"She says balance is important for a healthy life."
-],
-vocab: [
-["healthy", "good for the body"],
-["exercise", "physical activity"],
-["habit", "routine action"],
-["balance", "equal and healthy combination"],
-["energy", "strength"]
-],
-skimming: {
-question: "What is the text mainly about?",
-options: [
-"A teacher changes her lifestyle",
-"A woman travels abroad",
-"A school activity",
-"A doctor visit"
-],
-correct: 0,
-explanation: "The text is about Sofia changing her habits to be healthy."
-},
-scanning: [
-{
-question: "How old is Sofia?",
-options: ["22", "23", "25", "28"],
-correct: 2,
-explanation: "She is twenty-five years old."
-},
-{
-question: "Where is she from?",
-options: ["Limón", "San José", "Heredia", "Cartago"],
-correct: 1,
-explanation: "She is from San José."
-},
-{
-question: "What did she start drinking?",
-options: ["Coffee", "Juice", "Water", "Milk"],
-correct: 2,
-explanation: "She replaced soft drinks with water."
-},
-{
-question: "What is important according to Sofia?",
-options: ["Money", "Balance", "Travel", "Sleep only"],
-correct: 1,
-explanation: "She says balance is important."
-}
-]
-},
+  // ---------- READING 3 - UNIT 2 ----------
+  {
+    id: 3, unit: 2,
+    title: "A Year of Change: Sofia's Healthy Journey",
+    paragraphs: [
+      "Sofia is a twenty-five-year-old teacher from San Jose. Two years ago, her life was very different. She used to eat fast food every day, she didn't exercise, and she slept only five hours a night. She felt tired all the time, and at the doctor's office, she discovered that her blood pressure was too high.",
+      "\"I was shocked,\" Sofia says. \"I am young. I shouldn't have these problems. So I decided to change my life completely.\"",
+      "She started slowly. First, she replaced soft drinks with water. After two weeks, she added a 20-minute walk to her morning routine. After one month, she stopped eating processed food. Instead, she cooked simple meals with vegetables, rice, beans, and chicken.",
+      "It wasn't easy. There were days when she wanted to give up. \"I missed the convenience of fast food,\" she admits. \"And exercising at six in the morning was painful in the beginning.\"",
+      "But she didn't give up. She wrote down her short-term and long-term goals in a notebook. Every Sunday, she planned her meals for the week. She also joined a yoga class on Saturdays - and there she made new friends with the same goals.",
+      "After one year, the results were incredible. She lost 15 kilograms, her blood pressure was normal, and she felt energetic and optimistic. She sleeps eight hours every night now.",
+      "\"The most important thing was my attitude,\" Sofia explains. \"I had to be patient and disciplined. I learned that healthy living is not a diet - it is a way of life. And the key is balance: good food, exercise, sleep, and time with the people you love.\""
+    ],
+    vocab: [
+      ["blood pressure", "the force of the blood in your body"],
+      ["processed food", "food that has been changed from its natural state"],
+      ["give up", "to stop trying"],
+      ["short-term / long-term goals", "goals for the near future / goals for many years from now"],
+      ["energetic", "full of energy"],
+      ["balance", "an equal mix of different things"]
+    ],
+    mainIdea: {
+      question: "What is the text MAINLY about?",
+      options: [
+        "A teacher who decided to quit her job and become a chef.",
+        "The story of a young woman who transformed her life through healthy habits.",
+        "An advertisement for a yoga class in San Jose.",
+        "Why fast food is dangerous for older people."
+      ],
+      correct: 1,
+      explanation: "The entire text tells how Sofia changed her habits and improved her health during one year."
+    },
+    details: [
+      {
+        question: "What health problem did Sofia have two years ago?",
+        options: [
+          "Diabetes.",
+          "High blood pressure.",
+          "Asthma.",
+          "Heart attack."
+        ],
+        correct: 1,
+        explanation: "The text says: \"...her blood pressure was too high.\""
+      },
+      {
+        question: "What was the FIRST change Sofia made?",
+        options: [
+          "She started running.",
+          "She joined a yoga class.",
+          "She replaced soft drinks with water.",
+          "She stopped eating meat."
+        ],
+        correct: 2,
+        explanation: "The text says: \"First, she replaced soft drinks with water.\""
+      },
+      {
+        question: "How much weight did Sofia lose after one year?",
+        options: ["5 kilograms", "10 kilograms", "15 kilograms", "20 kilograms"],
+        correct: 2,
+        explanation: "The text says: \"She lost 15 kilograms...\""
+      },
+      {
+        question: "According to Sofia, what is the KEY to healthy living?",
+        options: [
+          "A strict diet without carbohydrates.",
+          "Exercising every single day for two hours.",
+          "Balance: good food, exercise, sleep, and time with loved ones.",
+          "Visiting the doctor every month."
+        ],
+        correct: 2,
+        explanation: "Sofia says: \"...the key is balance: good food, exercise, sleep, and time with the people you love.\""
+      }
+    ]
+  },
 
-{
-id: 4, unit: 2,
-title: "Franklin Chang Díaz",
-paragraphs: [
-"Franklin Chang Díaz is a famous Costa Rican astronaut.",
-"He was born in San José in 1950.",
-"He studied in the United States and became an astronaut at NASA.",
-"He traveled to space seven times.",
-"He tells students to work hard and follow their dreams."
-],
-vocab: [
-["astronaut", "person who travels to space"],
-["space", "outside Earth"],
-["study", "learn"],
-["dream", "goal"],
-["hard work", "strong effort"]
-],
-skimming: {
-question: "What is the text mainly about?",
-options: [
-"A teacher from Costa Rica",
-"A Costa Rican astronaut",
-"A science class",
-"A university"
-],
-correct: 1,
-explanation: "The text talks about Franklin Chang Díaz and his achievements."
-},
-scanning: [
-{
-question: "Where was Franklin born?",
-options: ["Cartago", "San José", "Limón", "Alajuela"],
-correct: 1,
-explanation: "He was born in San José."
-},
-{
-question: "What year was he born?",
-options: ["1945", "1950", "1960", "1970"],
-correct: 1,
-explanation: "He was born in 1950."
-},
-{
-question: "How many times did he go to space?",
-options: ["5", "6", "7", "8"],
-correct: 2,
-explanation: "He traveled to space seven times."
-},
-{
-question: "What does he tell students?",
-options: [
-"Play more",
-"Travel now",
-"Work hard",
-"Study less"
-],
-correct: 2,
-explanation: "He tells students to work hard."
-}
-]
-}
-
+  // ---------- READING 4 - UNIT 2 ----------
+  {
+    id: 4, unit: 2,
+    title: "Franklin Chang Diaz: A Costa Rican in Space",
+    paragraphs: [
+      "Franklin Chang Diaz is one of the most successful Costa Ricans in history. He was born in San Jose in 1950, into a family without much money. As a child, he dreamed of becoming an astronaut. But becoming an astronaut from Costa Rica seemed impossible.",
+      "When he was 18, he travelled to the United States with only fifty dollars in his pocket. He didn't speak English very well, and he didn't know many people. He lived with relatives and studied hard. He learned English while working in different jobs to pay for his food.",
+      "After graduating from high school, he received a scholarship to study at the University of Connecticut. Later, he earned a PhD in Applied Plasma Physics from MIT - one of the best universities in the world.",
+      "In 1980, his dream came true. NASA selected him to become an astronaut. Between 1986 and 2002, he travelled to space seven times - a record he shares with another astronaut. He is the first Latin American astronaut in history.",
+      "But his story does not end there. After retiring from NASA, he founded a company called Ad Astra Rocket. The company is developing a new type of engine that, in the future, could take humans to Mars in only 39 days.",
+      "Chang Diaz often visits Costa Rican schools to talk to students. His message is always the same: \"Don't let anyone tell you that your dreams are impossible. With hard work, education, and perseverance, you can achieve anything. I grew up in a small country, in a humble family, and I went to space. If I could do it, you can too.\"",
+      "Today, Franklin Chang Diaz is a role model for young people in Costa Rica and around the world."
+    ],
+    vocab: [
+      ["astronaut", "a person who travels into space"],
+      ["scholarship", "money given to a student to pay for studies"],
+      ["PhD", "the highest university degree"],
+      ["engine", "a machine that produces power to move something"],
+      ["perseverance", "continuing to try even when it is difficult"],
+      ["role model", "a person whose behavior others want to follow"]
+    ],
+    mainIdea: {
+      question: "What is the text MAINLY about?",
+      options: [
+        "The history of NASA and the space race.",
+        "The inspiring life of a Costa Rican who became a famous astronaut.",
+        "A technical guide to building rocket engines.",
+        "How to apply for a scholarship at MIT."
+      ],
+      correct: 1,
+      explanation: "The text is a short biography of Franklin Chang Diaz - his life and achievements as a successful Costa Rican."
+    },
+    details: [
+      {
+        question: "How much money did he have when he travelled to the United States?",
+        options: ["Fifteen dollars", "Fifty dollars", "Five hundred dollars", "Five thousand dollars"],
+        correct: 1,
+        explanation: "The text says: \"...he travelled to the United States with only fifty dollars in his pocket.\""
+      },
+      {
+        question: "At what university did he earn his PhD?",
+        options: [
+          "The University of Costa Rica.",
+          "The University of Connecticut.",
+          "MIT (Massachusetts Institute of Technology).",
+          "Stanford University."
+        ],
+        correct: 2,
+        explanation: "The text says: \"...he earned a PhD in Applied Plasma Physics from MIT...\""
+      },
+      {
+        question: "How many times did he travel to space?",
+        options: ["Five times", "Six times", "Seven times", "Ten times"],
+        correct: 2,
+        explanation: "The text says: \"Between 1986 and 2002, he travelled to space seven times...\""
+      },
+      {
+        question: "What is the main message Chang Diaz gives to students?",
+        options: [
+          "Only smart people can succeed.",
+          "Studying abroad is the only way to be successful.",
+          "With hard work, education, and perseverance, you can achieve anything.",
+          "You need to be rich to follow your dreams."
+        ],
+        correct: 2,
+        explanation: "His message in the text is: \"With hard work, education, and perseverance, you can achieve anything.\""
+      }
+    ]
+  }
 ];
+
+// ============================================================
+// STATE
+// ============================================================
+const state = {
+  current: 1,
+  answers: {}
+};
+
+READINGS.forEach(r => state.answers[r.id] = { mainIdea: null, details: {}, mainIdeaChecked: false, detailsChecked: false });
+
+try {
+  const saved = localStorage.getItem('reading_state_roberth_v2');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    Object.assign(state, parsed);
+  }
+} catch (e) {}
+
+function saveState() {
+  try { localStorage.setItem('reading_state_roberth_v2', JSON.stringify(state)); }
+  catch (e) {}
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderTabs() {
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = '';
+  READINGS.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (state.current === r.id ? ' active' : '');
+    if (isReadingComplete(r.id)) btn.classList.add('completed');
+    btn.textContent = `Reading ${r.id} - Unit ${r.unit}`;
+    btn.onclick = () => { state.current = r.id; render(); window.scrollTo({top: 0, behavior: 'smooth'}); };
+    tabs.appendChild(btn);
+  });
+}
+
+function isReadingComplete(rid) {
+  const a = state.answers[rid];
+  return a.mainIdeaChecked && a.detailsChecked;
+}
+
+function renderReadings() {
+  const container = document.getElementById('readings-container');
+  container.innerHTML = '';
+  READINGS.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'reading-card' + (state.current === r.id ? ' active' : '');
+    card.id = `reading-${r.id}`;
+
+    const ans = state.answers[r.id];
+    const detailsUnlocked = ans.mainIdeaChecked;
+
+    card.innerHTML = `
+      <div class="reading-header">
+        <div class="unit-badge unit-${r.unit}">Unit ${r.unit}</div>
+        <h2>Reading ${r.id} - ${r.title}</h2>
+      </div>
+
+      <!-- STEP 1: READ THE TEXT -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <div class="step-title">Read the text</div>
+        </div>
+        <div class="tip-box">
+          <strong>Tip:</strong> Read the text quickly (1-2 minutes maximum). Do not stop on each word. Try to understand the <strong>general idea</strong>.
+        </div>
+        <div class="reading-text" id="text-${r.id}">
+          ${r.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('')}
+        </div>
+        <div class="vocab-help">
+          <strong>Vocabulary help:</strong><br>
+          ${r.vocab.map(([en, def]) => `<span class="vword"><b>${en}</b>: ${def}</span>`).join('')}
+        </div>
+      </div>
+
+      <!-- STEP 2: MAIN IDEA QUESTION -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <div class="step-title">Main idea question</div>
+        </div>
+        <div class="question" id="main-q-${r.id}">
+          <div class="question-text">${escapeHtml(r.mainIdea.question)}</div>
+          <div class="options">
+            ${r.mainIdea.options.map((opt, i) => `
+              <label class="option" data-i="${i}" onclick="selectMain(${r.id}, ${i})">
+                <input type="radio" name="main-${r.id}" ${ans.mainIdea === i ? 'checked' : ''}>
+                <span>${String.fromCharCode(65+i)}) ${escapeHtml(opt)}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="check-main-${r.id}" onclick="checkMain(${r.id})" ${ans.mainIdeaChecked ? 'disabled' : ''}>
+              ${ans.mainIdeaChecked ? 'Answer submitted' : 'Check answer'}
+            </button>
+          </div>
+          <div class="feedback" id="main-fb-${r.id}"></div>
+        </div>
+      </div>
+
+      <!-- STEP 3: READ AGAIN -->
+      <div class="step ${detailsUnlocked ? '' : 'locked'}">
+        <div class="step-header">
+          <div class="step-number ${detailsUnlocked ? '' : 'locked'}">3</div>
+          <div class="step-title">Read the text again</div>
+        </div>
+        ${!detailsUnlocked ? '<div class="lock-msg">Answer the main idea question first to unlock this section.</div>' : `
+        <div class="tip-box purple">
+          <strong>Tip:</strong> Read the text a second time. Look for <strong>specific information</strong>: names, dates, numbers, places, and key words. You can go back to the text as many times as you need.
+        </div>`}
+      </div>
+
+      <!-- STEP 4: DETAIL QUESTIONS -->
+      <div class="step ${detailsUnlocked ? '' : 'locked'}">
+        <div class="step-header">
+          <div class="step-number ${detailsUnlocked ? '' : 'locked'}">4</div>
+          <div class="step-title">Detail questions</div>
+        </div>
+        ${!detailsUnlocked ? '<div class="lock-msg">This section unlocks after step 2.</div>' : `
+          ${r.details.map((q, qi) => `
+            <div class="question" id="detail-q-${r.id}-${qi}">
+              <div class="question-text"><span class="qnum">${qi+1}</span>${escapeHtml(q.question)}</div>
+              <div class="options">
+                ${q.options.map((opt, i) => `
+                  <label class="option" data-i="${i}" onclick="selectDetail(${r.id}, ${qi}, ${i})">
+                    <input type="radio" name="detail-${r.id}-${qi}" ${ans.details[qi] === i ? 'checked' : ''}>
+                    <span>${String.fromCharCode(65+i)}) ${escapeHtml(opt)}</span>
+                  </label>
+                `).join('')}
+              </div>
+              <div class="feedback" id="detail-fb-${r.id}-${qi}"></div>
+            </div>
+          `).join('')}
+          <div class="btn-row">
+            <button class="btn btn-primary" id="check-detail-${r.id}" onclick="checkDetails(${r.id})" ${ans.detailsChecked ? 'disabled' : ''}>
+              ${ans.detailsChecked ? 'Answers submitted' : 'Check all answers'}
+            </button>
+          </div>
+          <div class="score-display" id="score-${r.id}"></div>
+        `}
+      </div>
+    `;
+    container.appendChild(card);
+
+    if (ans.mainIdeaChecked) showMainFeedback(r.id);
+    if (ans.detailsChecked) showDetailFeedback(r.id);
+  });
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function updateProgress() {
+  const done = READINGS.filter(r => isReadingComplete(r.id)).length;
+  document.getElementById('progress-text').textContent = `${done} / ${READINGS.length}`;
+  if (done === READINGS.length) {
+    showSummary();
+  }
+}
+
+function render() {
+  renderTabs();
+  renderReadings();
+  updateProgress();
+  saveState();
+}
+
+// ============================================================
+// INTERACTIONS
+// ============================================================
+function selectMain(rid, i) {
+  if (state.answers[rid].mainIdeaChecked) return;
+  state.answers[rid].mainIdea = i;
+  document.querySelectorAll(`input[name="main-${rid}"]`).forEach((r, idx) => r.checked = idx === i);
+  document.querySelectorAll(`#main-q-${rid} .option`).forEach((opt, idx) => {
+    opt.classList.toggle('selected', idx === i);
+  });
+  saveState();
+}
+
+function checkMain(rid) {
+  const ans = state.answers[rid];
+  if (ans.mainIdea === null) {
+    alert("Please select an option before checking.");
+    return;
+  }
+  ans.mainIdeaChecked = true;
+  showMainFeedback(rid);
+  saveState();
+  render();
+}
+
+function showMainFeedback(rid) {
+  const r = READINGS.find(x => x.id === rid);
+  const ans = state.answers[rid];
+  const correct = r.mainIdea.correct;
+  const fb = document.getElementById(`main-fb-${rid}`);
+  const opts = document.querySelectorAll(`#main-q-${rid} .option`);
+  opts.forEach((o, i) => {
+    o.classList.remove('selected', 'correct', 'incorrect');
+    if (i === correct) o.classList.add('correct');
+    else if (i === ans.mainIdea) o.classList.add('incorrect');
+    o.style.pointerEvents = 'none';
+  });
+  const isRight = ans.mainIdea === correct;
+  if (fb) {
+    fb.className = 'feedback show ' + (isRight ? 'correct' : 'incorrect');
+    fb.innerHTML = `
+      <strong>${isRight ? 'Correct!' : 'Incorrect'}</strong>
+      ${escapeHtml(r.mainIdea.explanation)}
+      ${!isRight ? `<br><br><em>Correct answer: ${String.fromCharCode(65+correct)}) ${escapeHtml(r.mainIdea.options[correct])}</em>` : ''}
+    `;
+  }
+  const btn = document.getElementById(`check-main-${rid}`);
+  if (btn) { btn.disabled = true; btn.textContent = 'Answer submitted'; }
+}
+
+function selectDetail(rid, qi, i) {
+  if (state.answers[rid].detailsChecked) return;
+  state.answers[rid].details[qi] = i;
+  document.querySelectorAll(`input[name="detail-${rid}-${qi}"]`).forEach((r, idx) => r.checked = idx === i);
+  document.querySelectorAll(`#detail-q-${rid}-${qi} .option`).forEach((opt, idx) => {
+    opt.classList.toggle('selected', idx === i);
+  });
+  saveState();
+}
+
+function checkDetails(rid) {
+  const r = READINGS.find(x => x.id === rid);
+  const ans = state.answers[rid];
+  const unanswered = r.details.filter((_, qi) => ans.details[qi] === undefined || ans.details[qi] === null).length;
+  if (unanswered > 0) {
+    if (!confirm(`There are still ${unanswered} unanswered question(s). Do you want to check anyway?`)) return;
+  }
+  ans.detailsChecked = true;
+  showDetailFeedback(rid);
+  saveState();
+  render();
+}
+
+function showDetailFeedback(rid) {
+  const r = READINGS.find(x => x.id === rid);
+  const ans = state.answers[rid];
+  let correct = 0;
+  r.details.forEach((q, qi) => {
+    const fb = document.getElementById(`detail-fb-${rid}-${qi}`);
+    const opts = document.querySelectorAll(`#detail-q-${rid}-${qi} .option`);
+    const userAns = ans.details[qi];
+    opts.forEach((o, i) => {
+      o.classList.remove('selected', 'correct', 'incorrect');
+      if (i === q.correct) o.classList.add('correct');
+      else if (i === userAns) o.classList.add('incorrect');
+      o.style.pointerEvents = 'none';
+    });
+    const isRight = userAns === q.correct;
+    if (isRight) correct++;
+    if (fb) {
+      fb.className = 'feedback show ' + (isRight ? 'correct' : 'incorrect');
+      fb.innerHTML = `
+        <strong>${isRight ? 'Correct!' : (userAns === undefined ? 'No answer' : 'Incorrect')}</strong>
+        ${escapeHtml(q.explanation)}
+      `;
+    }
+  });
+  const total = r.details.length;
+  const pct = Math.round((correct / total) * 100);
+  const scoreDiv = document.getElementById(`score-${rid}`);
+  if (scoreDiv) {
+    scoreDiv.classList.add('show');
+    let msg = "";
+    if (pct === 100) msg = "Excellent! Perfect score.";
+    else if (pct >= 75) msg = "Very good! Solid understanding of the details.";
+    else if (pct >= 50) msg = "Good. Practice re-reading and looking for key words.";
+    else msg = "Review the text more carefully and try again.";
+    scoreDiv.innerHTML = `
+      <div class="score-label">Score</div>
+      <div class="score-number">${correct} / ${total}</div>
+      <div class="score-label">${pct}%</div>
+      <div class="score-msg">${msg}</div>
+    `;
+  }
+  const btn = document.getElementById(`check-detail-${rid}`);
+  if (btn) { btn.disabled = true; btn.textContent = 'Answers submitted'; }
+}
+
+function showSummary() {
+  const summary = document.getElementById('summary');
+  summary.classList.add('show');
+  const grid = document.getElementById('summary-grid');
+  let totalCorrect = 0;
+  let totalQuestions = 0;
+  let html = '';
+  READINGS.forEach(r => {
+    const ans = state.answers[r.id];
+    let c = 0, t = r.details.length + 1;
+    if (ans.mainIdea === r.mainIdea.correct) c++;
+    r.details.forEach((q, qi) => { if (ans.details[qi] === q.correct) c++; });
+    totalCorrect += c;
+    totalQuestions += t;
+    html += `
+      <div class="summary-item">
+        <div class="label">Reading ${r.id} - Unit ${r.unit}</div>
+        <div class="value">${c} / ${t}</div>
+      </div>
+    `;
+  });
+  grid.innerHTML = html;
+  const pct = Math.round((totalCorrect / totalQuestions) * 100);
+  document.getElementById('total-num').textContent = `${totalCorrect} / ${totalQuestions} (${pct}%)`;
+  let msg = "";
+  if (pct >= 90) msg = "Outstanding performance. Congratulations!";
+  else if (pct >= 80) msg = "Very good performance. Keep practicing.";
+  else if (pct >= 70) msg = "Good performance. Review the readings where you missed questions.";
+  else if (pct >= 60) msg = "Acceptable performance. Practice reading more often.";
+  else msg = "More practice is needed. Please coordinate with your teacher.";
+  document.getElementById('total-msg').textContent = msg;
+}
+
+function resetAll() {
+  if (!confirm("Are you sure you want to reset ALL readings? Your progress will be lost.")) return;
+  READINGS.forEach(r => state.answers[r.id] = { mainIdea: null, details: {}, mainIdeaChecked: false, detailsChecked: false });
+  state.current = 1;
+  saveState();
+  document.getElementById('summary').classList.remove('show');
+  render();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+render();
+</script>
+</body>
+</html>
