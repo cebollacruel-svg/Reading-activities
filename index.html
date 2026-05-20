@@ -718,96 +718,90 @@ function renderReadings() {
     const detailsUnlocked = ans.mainIdeaChecked;
 
     card.innerHTML = `
-      <div class="reading-header">
-        <div class="unit-badge unit-${r.unit}">Unit ${r.unit}</div>
-        <h2>Reading ${r.id} - ${r.title}</h2>
-      </div>
+  <div class="reading-header">
+    <div class="unit-badge unit-${r.unit}">Unit ${r.unit}</div>
+    <h2>Reading ${r.id} - ${r.title}</h2>
+  </div>
 
-      <!-- STEP 1: READ THE TEXT -->
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">1</div>
-          <div class="step-title">Read the text</div>
-        </div>
-        <div class="tip-box">
-          <strong>Tip:</strong> Read the text quickly (1-2 minutes maximum). Do not stop on each word. Try to understand the <strong>general idea</strong>.
-        </div>
-        <div class="reading-text" id="text-${r.id}">
-          ${r.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('')}
-        </div>
-        <div class="vocab-help">
-          <strong>Vocabulary help:</strong><br>
-          ${r.vocab.map(([en, def]) => `<span class="vword"><b>${en}</b>: ${def}</span>`).join('')}
-        </div>
-      </div>
+  <!-- STEP 1: READ THE TEXT -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Read the text</div>
+    </div>
+    <div class="reading-text" id="text-${r.id}">
+      ${r.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('')}
+    </div>
+    <div class="vocab-help">
+      <strong>Vocabulary help:</strong><br>
+      ${r.vocab.map(([en, def]) => `<span class="vword"><b>${en}</b>: ${def}</span>`).join('')}
+    </div>
+  </div>
 
-      <!-- STEP 2: MAIN IDEA QUESTION -->
-      <div class="step">
-        <div class="step-header">
-          <div class="step-number">2</div>
-          <div class="step-title">Main idea question</div>
-        </div>
-        <div class="question" id="main-q-${r.id}">
-          <div class="question-text">${escapeHtml(r.mainIdea.question)}</div>
+  <!-- STEP 2: MAIN IDEA QUESTION -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Main idea question</div>
+    </div>
+    <div class="question" id="main-q-${r.id}">
+      <div class="question-text">${escapeHtml(r.mainIdea.question)}</div>
+      <div class="options">
+        ${r.mainIdea.options.map((opt, i) => `
+          <label class="option" data-i="${i}" onclick="selectMain(${r.id}, ${i})">
+            <input type="radio" name="main-${r.id}" ${ans.mainIdea === i ? 'checked' : ''}>
+            <span>${String.fromCharCode(65+i)}) ${escapeHtml(opt)}</span>
+          </label>
+        `).join('')}
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="check-main-${r.id}" onclick="checkMain(${r.id})" ${ans.mainIdeaChecked ? 'disabled' : ''}>
+          ${ans.mainIdeaChecked ? 'Answer submitted' : 'Check answer'}
+        </button>
+      </div>
+      <div class="feedback" id="main-fb-${r.id}"></div>
+    </div>
+  </div>
+
+  <!-- STEP 3: READ AGAIN -->
+  <div class="step ${detailsUnlocked ? '' : 'locked'}">
+    <div class="step-header">
+      <div class="step-number ${detailsUnlocked ? '' : 'locked'}">3</div>
+      <div class="step-title">Read the text again</div>
+    </div>
+    ${!detailsUnlocked ? '<div class="lock-msg">Answer the main idea question first to unlock this section.</div>' : ''}
+  </div>
+
+  <!-- STEP 4: DETAIL QUESTIONS -->
+  <div class="step ${detailsUnlocked ? '' : 'locked'}">
+    <div class="step-header">
+      <div class="step-number ${detailsUnlocked ? '' : 'locked'}">4</div>
+      <div class="step-title">Detail questions</div>
+    </div>
+    ${!detailsUnlocked ? '<div class="lock-msg">This section unlocks after step 2.</div>' : `
+      ${r.details.map((q, qi) => `
+        <div class="question" id="detail-q-${r.id}-${qi}">
+          <div class="question-text"><span class="qnum">${qi+1}</span>${escapeHtml(q.question)}</div>
           <div class="options">
-            ${r.mainIdea.options.map((opt, i) => `
-              <label class="option" data-i="${i}" onclick="selectMain(${r.id}, ${i})">
-                <input type="radio" name="main-${r.id}" ${ans.mainIdea === i ? 'checked' : ''}>
+            ${q.options.map((opt, i) => `
+              <label class="option" data-i="${i}" onclick="selectDetail(${r.id}, ${qi}, ${i})">
+                <input type="radio" name="detail-${r.id}-${qi}" ${ans.details[qi] === i ? 'checked' : ''}>
                 <span>${String.fromCharCode(65+i)}) ${escapeHtml(opt)}</span>
               </label>
             `).join('')}
           </div>
-          <div class="btn-row">
-            <button class="btn btn-primary" id="check-main-${r.id}" onclick="checkMain(${r.id})" ${ans.mainIdeaChecked ? 'disabled' : ''}>
-              ${ans.mainIdeaChecked ? 'Answer submitted' : 'Check answer'}
-            </button>
-          </div>
-          <div class="feedback" id="main-fb-${r.id}"></div>
+          <div class="feedback" id="detail-fb-${r.id}-${qi}"></div>
         </div>
+      `).join('')}
+      <div class="btn-row">
+        <button class="btn btn-primary" id="check-detail-${r.id}" onclick="checkDetails(${r.id})" ${ans.detailsChecked ? 'disabled' : ''}>
+          ${ans.detailsChecked ? 'Answers submitted' : 'Check all answers'}
+        </button>
       </div>
-
-      <!-- STEP 3: READ AGAIN -->
-      <div class="step ${detailsUnlocked ? '' : 'locked'}">
-        <div class="step-header">
-          <div class="step-number ${detailsUnlocked ? '' : 'locked'}">3</div>
-          <div class="step-title">Read the text again</div>
-        </div>
-        ${!detailsUnlocked ? '<div class="lock-msg">Answer the main idea question first to unlock this section.</div>' : `
-        <div class="tip-box purple">
-          <strong>Tip:</strong> Read the text a second time. Look for <strong>specific information</strong>: names, dates, numbers, places, and key words. You can go back to the text as many times as you need.
-        </div>`}
-      </div>
-
-      <!-- STEP 4: DETAIL QUESTIONS -->
-      <div class="step ${detailsUnlocked ? '' : 'locked'}">
-        <div class="step-header">
-          <div class="step-number ${detailsUnlocked ? '' : 'locked'}">4</div>
-          <div class="step-title">Detail questions</div>
-        </div>
-        ${!detailsUnlocked ? '<div class="lock-msg">This section unlocks after step 2.</div>' : `
-          ${r.details.map((q, qi) => `
-            <div class="question" id="detail-q-${r.id}-${qi}">
-              <div class="question-text"><span class="qnum">${qi+1}</span>${escapeHtml(q.question)}</div>
-              <div class="options">
-                ${q.options.map((opt, i) => `
-                  <label class="option" data-i="${i}" onclick="selectDetail(${r.id}, ${qi}, ${i})">
-                    <input type="radio" name="detail-${r.id}-${qi}" ${ans.details[qi] === i ? 'checked' : ''}>
-                    <span>${String.fromCharCode(65+i)}) ${escapeHtml(opt)}</span>
-                  </label>
-                `).join('')}
-              </div>
-              <div class="feedback" id="detail-fb-${r.id}-${qi}"></div>
-            </div>
-          `).join('')}
-          <div class="btn-row">
-            <button class="btn btn-primary" id="check-detail-${r.id}" onclick="checkDetails(${r.id})" ${ans.detailsChecked ? 'disabled' : ''}>
-              ${ans.detailsChecked ? 'Answers submitted' : 'Check all answers'}
-            </button>
-          </div>
-          <div class="score-display" id="score-${r.id}"></div>
-        `}
-      </div>
-    `;
+      <div class="score-display" id="score-${r.id}"></div>
+    `}
+  </div>
+`;
     container.appendChild(card);
 
     if (ans.mainIdeaChecked) showMainFeedback(r.id);
